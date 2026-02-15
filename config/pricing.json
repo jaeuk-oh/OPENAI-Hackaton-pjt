@@ -1,0 +1,35 @@
+{
+  "unit_prices": {
+    "ko-en": { "general": 120, "legal": 180, "medical": 200, "technical": 160 },
+    "en-ko": { "general": 110, "legal": 170, "medical": 190, "technical": 150 },
+    "ko-ja": { "general": 130, "legal": 200, "medical": 220, "technical": 180 },
+    "ko-zh": { "general": 100, "legal": 160, "medical": 180, "technical": 140 }
+  },
+  "surcharges": {
+    "urgent":     { "label": "긴급 (24h 이내)",    "rate": 0.50 },
+    "semi_urgent": { "label": "준긴급 (48h 이내)",  "rate": 0.30 },
+    "dtp":        { "label": "DTP (서식 유지)",     "rate": 0.20 },
+    "night":      { "label": "야간/주말",           "rate": 0.10 }
+  },
+  "surcharge_exclusive_groups": [
+    ["urgent", "semi_urgent"]
+  ],
+  "vat_rate": 0.10,
+  "volume_conversion": {
+    "chars": 1,
+    "words": 2.5,
+    "pages": 300
+  },
+  "language_pairs": {
+    "ko-en": "한국어 → 영어",
+    "en-ko": "영어 → 한국어",
+    "ko-ja": "한국어 → 일본어",
+    "ko-zh": "한국어 → 중국어"
+  },
+  "domains": {
+    "general": "일반",
+    "legal": "법률",
+    "medical": "의료",
+    "technical": "기술/IT"
+  }
+}

@@ -1,7 +1,22 @@
 [project]
-name = "openai-hackaton-pjt"
+name = "translation-quote-system"
 version = "0.1.0"
-description = "Add your description here"
+description = "AI-powered translation quote system with OpenAI GPT-4o-mini"
 readme = "README.md"
 requires-python = ">=3.14"
-dependencies = []
+dependencies = [
+    "streamlit>=1.40.0",
+    "openai>=1.60.0",
+    "reportlab>=4.2.0",
+    "gspread>=6.1.0",
+    "google-auth>=2.36.0",
+    "python-docx>=1.1.0",
+    "pypdf2>=3.0.0",
+    "pdfplumber>=0.11.0",
+    "langdetect>=1.0.9",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+]
