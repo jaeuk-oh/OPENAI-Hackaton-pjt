@@ -1,6 +1,7 @@
 import streamlit as st
 from datetime import date, timedelta
 from modules.quote_calculator import calculate_quote, load_pricing
+from modules.pdf_generator import generate_quote_pdf
 
 pricing = load_pricing()
 
@@ -193,7 +194,21 @@ elif st.session_state.step == 2:
     # 하단 버튼
     col1, col2 = st.columns(2)
     with col1:
-        st.button("📄 PDF 견적서 다운로드", disabled=True, use_container_width=True)
+        pdf_bytes = generate_quote_pdf(
+            result=result,
+            client_name=st.session_state.client_name,
+            client_email=st.session_state.client_email,
+            deadline=st.session_state.deadline,
+            notes=st.session_state.notes,
+            quote_number=quote_number,
+        )
+        st.download_button(
+            "📄 PDF 견적서 다운로드",
+            data=pdf_bytes,
+            file_name=f"{quote_number}.pdf",
+            mime="application/pdf",
+            use_container_width=True,
+        )
     with col2:
         if st.button("🔄 새 견적 작성", use_container_width=True):
             st.session_state.step = 1
