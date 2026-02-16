@@ -22,3 +22,22 @@ AI-powered translation quote system with OpenAI GPT-4o-mini
       surcharge_total += amount
   ```
 - **테스트**: `test_multiple_surcharges` — 14/14 통과 확인
+
+### Phase 5: OpenAI API 연동
+
+**Issue #2: OpenAI 클라이언트 모듈 최상단 초기화 시 앱 전체 실행 불가**
+
+- **문제**: `client = OpenAI()`를 모듈 레벨(최상단)에서 실행하면, `OPENAI_API_KEY`가 미설정 시 해당 모듈을 import하는 것만으로 `OpenAIError` 발생 → 앱 전체가 실행 불가
+- **원인**: `app.py`가 `file_analyzer`, `email_parser`를 import → 모듈 로드 시점에 `OpenAI()` 생성자 호출 → API 키 검증 실패
+- **해결**: `_get_client()` 함수로 지연 초기화(Lazy init). 실제 API 호출 시점에만 클라이언트 생성
+  ```python
+  # Before (모듈 import 시 에러)
+  client = OpenAI()
+
+  # After (API 호출 시점에 생성)
+  def _get_client() -> OpenAI:
+      return OpenAI()
+
+  response = _get_client().chat.completions.create(...)
+  ```
+- **효과**: API 키 없이도 메인 플로우(직접 입력 → 견적 → PDF)가 정상 동작
