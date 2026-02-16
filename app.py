@@ -126,6 +126,20 @@ if st.session_state.step == 1:
             st.session_state.client_email = client_email
             st.session_state.deadline = deadline
             st.session_state.notes = notes
+
+            # Google Sheets 자동 기록 (백그라운드)
+            try:
+                from modules.sheets_connector import save_quote_to_sheets
+                save_quote_to_sheets(
+                    result=result,
+                    client_name=client_name,
+                    client_email=client_email,
+                    deadline=deadline,
+                    notes=notes,
+                )
+            except Exception:
+                pass  # Sheets 실패해도 견적 플로우는 계속 진행
+
             st.rerun()
         except ValueError as e:
             st.error(str(e))
